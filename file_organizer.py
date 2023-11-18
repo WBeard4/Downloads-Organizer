@@ -27,7 +27,7 @@ def is_exe(file):
     return os.path.splitext(file)[1] in executables
 
 def organize():
-    base_dir = "C:/Users/will/downloads"
+    base_dir = "C:/Users/study/downloads"
     os.chdir(base_dir)
     
     folders = ['videos', 'audio', 'images', '3d', 'zips', 'executables', 'other']
@@ -39,19 +39,19 @@ def organize():
     for file in os.listdir():
         if os.path.isfile(file):
             if is_video(file):
-                shutil.move(file, "C:/Users/will/downloads/videos")
+                shutil.move(file, os.path.join(base_dir, "videos", file))
             elif is_audio(file):
-                shutil.move(file, "C:/Users/will/downloads/audio")
+                shutil.move(file, os.path.join(base_dir, "audio", file))
             elif is_image(file):
-                shutil.move(file, "C:/Users/will/downloads/images")
+                shutil.move(file, os.path.join(base_dir, "images", file))
             elif is_3d(file):
-                shutil.move(file, "C:/Users/will/downloads/3d")
+                shutil.move(file, os.path.join(base_dir, "3d", file))
             elif is_zip(file):
-                shutil.move(file, "C:/Users/will/downloads/zips")
+                shutil.move(file, os.path.join(base_dir, "zips", file))
             elif is_exe(file):
-                shutil.move(file, "C:/Users/will/downloads/executables")
+                shutil.move(file, os.path.join(base_dir, "executables", file))
             else:
-                shutil.move(file, "C:/Users/will/downloads/other")
+                shutil.move(file, os.path.join(base_dir, "other", file))
             
     print("Done")
 organize()
