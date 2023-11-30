@@ -67,4 +67,5 @@ def organize():
                 shutil.move(file, os.path.join(base_dir, "other", file))
             
     print("Done")
-organize()
+if __name__ == '__main__':
+    organize()
