@@ -51,9 +51,7 @@ def is_doc(file):
 
 
 def organize():
-    # Assigning base directory here, so it can be used in os.path later
     os.chdir(base_dir)
-
     # Checking if the folders exist, and if not creating them
     folders = ['videos', 'audio', 'images', '3d', 'zips', 'executables', 'docs', 'other']
     for folder in folders:
