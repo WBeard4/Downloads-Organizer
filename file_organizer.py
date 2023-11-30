@@ -1,6 +1,22 @@
 import os
 import shutil
 
+# Below are the modules needed for watchdog to detect files being added to downloads
+import time
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+observer = Observer()
+base_dir = "C:/Users/study/downloads"
+# Create the handler class to check if a directory is created, and if so ignore it, so it only moves files
+class Handler(FileSystemEventHandler):
+    def on_created(self, event):
+        if event.is_directory:
+            return None
+        organize()
+
+observer.schedule(Handler(), path=base_dir, recursive=False)
+
+
 # Assigning file extensions to variables. More can be added here to fit requirements
 video = (".webm", ".mkv", ".mp4", ".avi", ".m4v", ".flv", ".mov", ".swf")
 audio = (".mp3", ".wav", ".flac", ".ogg", ".wma", ".aac", ".m4a")
@@ -36,7 +52,6 @@ def is_doc(file):
 
 def organize():
     # Assigning base directory here, so it can be used in os.path later
-    base_dir = "C:/Users/will.beard/downloads"
     os.chdir(base_dir)
 
     # Checking if the folders exist, and if not creating them
@@ -66,6 +81,14 @@ def organize():
             else:
                 shutil.move(file, os.path.join(base_dir, "other", file))
             
-    print("Done")
+
+
 if __name__ == '__main__':
-    organize()
+    observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+
+
